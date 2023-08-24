@@ -63,7 +63,7 @@ Duration: ${thirdEpisode.duration} min
 ${thirdEpisode.hasBeenWatched ? 'Already watched' : 'Not yet watched'}`;
  */
 
-// ================================ Paragraph: id="triller-info" & Array of Objects ================================== //
+// ================================ Paragraph: id="triller-info" & Array of Objects ================================= //
 
 // Créer un tableau qui stock tous les trois objets de la classe "episode"
 let episodesArray = [firstEpisode, secondEpisode, thirdEpisode];
@@ -82,7 +82,7 @@ const body = document.querySelector('body');
 // La boucle "For" parcourt chaque épisode dans le tableau episodesArray.
 // Cependant, il y a une petite erreur : la variable numberOfEpisodes n'est pas définie dans le code que vous avez partagé.
 // Vous devriez probablement remplacer numberOfEpisodes par episodesArray.length pour que ça fonctionne correctement.
-for (let i = 0; i < numberOfEpisodes; i++) {
+for (let i = 0; i < episodesArray.length; i++) {
     // Créer un nouvel élément <div> et l'affecter à l'élément <div> : "baliseDiv_Container"
     let baliseDiv_Container = document.createElement('div');
 
@@ -126,4 +126,48 @@ for (let i = 0; i < numberOfEpisodes; i++) {
     //  de la page
     body.append(baliseDiv_Container);
 }
+
+// ======================================== Input: id="age" & les conditions ======================================== //
+
+// On pointe sur l'élément de message pour récupérer l'élément <h2> : "baliseH2_message"
+let baliseInput_message = document.getElementById('message');
+
+// On pointe sur l'élément de champ de saisie de l'age pour récupérer l'élément <input> : "baliseInput_age" avec
+// son id="age"
+let baliseInput_age = document.getElementById('age');
+
+// On pointe sur l'élément de bouton pour récupérer l'élément <input> : "baliseInput_bouton" avec son id="bouton"
+let baliseInput_bouton = document.getElementById('bouton');
+
+// Fonction qui affiche le message d'autorisation d'accès ou non accès
+function authoriseAccess(age){
+    if(age >= 18){
+        baliseInput_message.innerHTML = "Vous êtes autorisé à entrer🚪";
+    }
+    else{
+        alert("Cette espace est interdit aux personnes mineurs🔞");
+    }
+}
+
+// Fonction qui confirme si Majeur ou mineur
+function confirme(){
+    // On récupère la saisie de l'âge et on transforme le texte en nombre entier
+    let age = parseInt(baliseInput_age.value);
+
+    //Si la saisie n'est pas un nombre, on affiche un message d'erreur
+    if (isNaN(age)){
+        alert("Ceci n'est pas un nombre");
+        baliseInput_age.value = "";
+        return;
+    }
+    //On vide le champ de saisie
+    baliseInput_age.value = "";
+
+    // Appeler la fonction authoriseAccess(age)
+    authoriseAccess(age);
+}
+
+// On écoute l'action de click sur le bouton et on appelle la fonction onConfirm
+baliseInput_bouton.addEventListener('click', confirme);
+
 

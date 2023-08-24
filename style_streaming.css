@@ -2,6 +2,7 @@ body {
     background-color: #111;
     color: #EEE;
     font-family: 'Roboto Slab', serif;
+    text-align:center;
 }
 
 .series-frame {
