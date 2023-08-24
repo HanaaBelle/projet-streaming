@@ -1,13 +1,14 @@
-// ============================================= Paragraph: class="info" ============================================ //
+// ============================================= Paragraph: class="serie-info" ============================================ //
 
-// Référencier la liste des conteneurs "paragraphsList" depuis les balises <p> avec la classe ".info"
-let paragraphsList = document.querySelectorAll('.info');
+// Récupérer tous les éléments <p> avec la classe ".serie-info" puis les stockez dans la variable paragraphsList.
+// C'est une NodeList ou une collection d'éléments et pas seulement un seul élément <p> paragraph mais plusieurs.
+let paragraphsList = document.querySelectorAll('.serie-info');
 
 let numberOfSeasons = 6;
 let numberOfEpisodes = 12;
 
-// Remplacer le contenu HTML des <p> de chaque paragraph de "paragraphsList" par les valeurs suivantes :
-// nombres de "saisons" et "épisodes"
+// Modifier le contenu HTML de chaque élément <p> de cette liste de paragraphe "paragraphsList" pour afficher le nombre
+// de saisons et d'épisodes
 paragraphsList.forEach(paragraph => {
     paragraph.innerHTML = `${numberOfSeasons} seasons <br> ${numberOfEpisodes} episodes per season`
 });
@@ -46,7 +47,7 @@ let firstEpisode = new Episode("The Original", 68, false);
 let secondEpisode = new Episode("Chestnut", 60, false);
 let thirdEpisode = new Episode("The Stray", 59, false);
 
-//Affecter à la balise <p> à l'id "#first-episode-info" les valeurs de l'instance 'objet (dictionnaire) : "épisode"
+/*Affecter à la balise <p> à l'id "#first-episode-info" les valeurs de l'instance 'objet (dictionnaire) : "épisode"
 document.querySelector('#first-episode-info').innerText = `Episode: ${firstEpisode.title}
 Duration: ${firstEpisode.duration} min
 ${firstEpisode.hasBeenWatched ? 'Already watched' : 'Not yet watched'}`
@@ -60,14 +61,20 @@ ${secondEpisode.hasBeenWatched ? 'Alerady watched' : 'Not yet watched'}`
 document.querySelector('#third-episode-info').innerText = `Episode: ${thirdEpisode.title}
 Duration: ${thirdEpisode.duration} min
 ${thirdEpisode.hasBeenWatched ? 'Already watched' : 'Not yet watched'}`;
+ */
 
 // ================================ Paragraph: id="triller-info" & Array of Objects ================================== //
 
 // Créer un tableau qui stock tous les trois objets de la classe "episode"
-let episodesArray = [secondEpisode, thirdEpisode, firstEpisode];
+let episodesArray = [firstEpisode, secondEpisode, thirdEpisode];
+
+/*episodesArray.unshift(firstEpisode);
+episodesArray.push(firstEpisode);
+episodesArray.pop();*/
 
 // Créer un nouvel élément <div> pour chaque épisode du tableau episodesArray et de l'ajouter à la page.
-// Chaque <div> contiendra un titre ("WestWorld") et un paragraphe avec les informations de l'épisode.
+// Puis chaque <div> contiendra un titre ("WestWorld"), un paragraphe avec les informations sur la série et un autre
+// avec les informations sur l'épisode.
 
 // Sélectionner l'élément <body> de la page et le stocke dans la variable body.
 const body = document.querySelector('body');
@@ -87,7 +94,7 @@ for (let i = 0; i < numberOfEpisodes; i++) {
     let baliseH2_SerieTitle = document.createElement('h2');
 
     // Définir le texte de l'élément <h2> : "baliseH2_SerieTitle" à "WestWorld"
-    baliseH2_SerieTitle.innerText = 'WestWorld';
+    baliseH2_SerieTitle.innerText = 'WestWorld🤠';
 
     // Créer un nouvel élément <p> : "baliseParagraph_episodeInfo"
     let baliseParagraph_episodeInfo = document.createElement('p');
@@ -95,15 +102,24 @@ for (let i = 0; i < numberOfEpisodes; i++) {
     // Définir le contenu de l'élément <p> : "baliseParagraph_episodeInfo" avec les informations de l'épisode
     // courant dans le tableau
     baliseParagraph_episodeInfo.innerText = `${episodesArray[i].title}
-                              ${episodesArray[i].duration} minutes
+                              ${episodesArray[i].duration} min
                               ${episodesArray[i].hasBeenWatched ? 'Already been watched' : 'Not yet watched'}`;
 
     // Ajouter l'élément <h2> : "baliseH2_SerieTitle" créé précédemment (avec le texte "WestWorld") au
-    // <div> : aliseDiv_Container
+    // <div> : baliseDiv_Container
     baliseDiv_Container.append(baliseH2_SerieTitle);
 
+    // Ajouter chaque élément <p> de la liste "paragrapheList" (contenant les informations sur la série :
+    // nombre de saisons et d'épisodes) au <div> : baliseDiv_Container
+    paragraphsList.forEach(paragraph => {
+        // cloneNode(true) permet de cloner l'élément et tous ses enfants avant de les ajouter. Cela n'affectera pas
+        // les éléments <p> originaux pour pouvoir les ajouter tous à baliseDiv_Container.
+        let clonedParagraph = paragraph.cloneNode(true);
+        baliseDiv_Container.append(clonedParagraph);
+    });
+
     //  Ajouter l'élément <p> : "baliseParagraph_episodeInfo" (contenant les informations de l'épisode) au
-    //  <div> : aliseDiv_Container
+    //  <div> : baliseDiv_Container
     baliseDiv_Container.append(baliseParagraph_episodeInfo);
 
     //  Ajouter le <div> : "baliseDiv_Container" (qui contient maintenant un titre et un paragraphe) à l'élément <body>
